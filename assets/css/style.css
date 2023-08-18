@@ -1,0 +1,363 @@
+body {
+    margin: 0;
+    height: 100%;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+html {
+    background: radial-gradient(ellipse, #1b2735 0%, #090a0f 100%);
+}
+
+#app {
+    min-height: 100%;
+    position: relative;
+    z-index: 9999;
+    height: 100%;
+    width: 100%;
+
+}
+
+/* #app img {
+    max-width: 150px;
+    display: inline-block;
+    max-height: 150px;
+    margin: 20px;
+} */
+
+/* !_____Player_____!*/
+#player {
+    width: 150px;
+    height: 150px;
+    background-size: contain;
+    position: absolute;
+    bottom: 60px;
+    left: calc(50% - 75px);
+    /* left: 525px */
+    transition: all .3s ease-out;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 3;
+}
+
+#player.skin1 {
+    background-image: url(../images/space-ship-1.png);
+}
+
+#player.skin2 {
+    background-image: url(../images/space-ship-2.png);
+    height: 200px;
+}
+
+#player.skin3 {
+    background-image: url(../images/x-wing.png);
+}
+
+/* !_____Bullet_____!*/
+.bullet {
+    position: absolute;
+    top: 70%;
+    left: 49.75%;
+    width: 0.5%;
+    height: 3%;
+    background-color: white;
+    border-radius: 6px/10px;
+    box-shadow: 0px 0px 10px, 0px 0px 2px inset;
+    animation: glow 1.5s linear infinite;
+    z-index: 3;
+}
+
+@keyframes glow {
+    from {
+        color: goldenrod;
+        box-shadow: 0 0 9px goldenrod;
+    }
+
+    50% {
+        color: goldenrod;
+        box-shadow: 0 0 18px goldenrod;
+    }
+
+    to {
+        color: goldenrod;
+        box-shadow: 0 0 9px goldenrod;
+    }
+}
+
+/* !_____Enemy_____!*/
+.enemy {
+    width: 150px;
+    height: 150px;
+    background-size: contain;
+    position: absolute;
+    top: -150px;
+    left: calc(50% - 75px);
+    /* left: 525px */
+    transition: all .3s ease-out;
+    z-index: 2;
+}
+
+.enemy.boom {
+    background-image: url(../images/boom.gif);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.enemy.skin1 {
+    background-image: url(../images/enemy.png);
+}
+
+/* !_____Asteroid_____!*/
+.asteroid {
+    width: 100px;
+    height: 65px;
+    background-image: url(../images/asteroid1.png);
+    position: absolute;
+    top: -64px;
+    left: 40%;
+    /* transition: all .1s ease-out; */
+    transform: rotate(5deg);
+}
+
+.asteroid.boom {
+    background-image: url(../images/boom.gif);
+    background-repeat: inherit;
+    background-position: center;
+}
+
+/* !_____Start and restart block_____!*/
+.start-game, .end-game {
+    width: 400px;
+    height: 300px;
+    background: whitesmoke;
+    border-radius: 10px;
+    box-shadow: rgba(240, 46, 170, 0.4) 5px 5px, rgba(240, 46, 170, 0.3) 10px 10px, rgba(240, 46, 170, 0.2) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+    padding: 20px;
+    position: absolute;
+    top: calc(50% - 150px);
+    left: calc(50% - 200px);
+    z-index: 4;
+}
+
+.start-game h1, .end-game h1 {
+    font-family: monospace;
+    text-align: center;
+    font-size: 28px;
+    color: rgba(240, 46, 170, 0.4);
+}
+
+.start-game button, .end-game button {
+    padding: 0.6em 2em;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    margin: 30px auto;
+    display: block;
+}
+
+.start-game button:before, .end-game button:before {
+    content: "";
+    background: linear-gradient(45deg,
+            #ff0000,
+            #ff7300,
+            #fffb00,
+            #48ff00,
+            #00ffd5,
+            #002bff,
+            #7a00ff,
+            #ff00c8,
+            #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing-button-85 20s linear infinite;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+}
+
+@keyframes glowing-button-85 {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.start-game button:after, .end-game button:after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #222;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+.start-game .skins {
+    display: flex;
+}
+
+.start-game .select-skin {
+    width: 30%;
+    height: 120px;
+    margin: 5px;
+    border: 1px solid rgba(240, 46, 170, 0.4);
+    background-image: url(../images/space-ship-1.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+
+.start-game .select-skin.skin2 {
+    background-image: url(../images/space-ship-2.png);
+}
+
+.start-game .select-skin.skin3 {
+    background-image: url(../images/x-wing.png);
+}
+
+.start-game .skins input {
+    display: none;
+}
+
+.skins input[type=radio]:checked+label {
+    border: 2px solid rebeccapurple;
+}
+
+/* !_____Menu_____!*/
+.menu {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    padding: 0 20px;
+    position: relative;
+    z-index: 4;
+}
+
+.menu .sound svg {
+    width: 50px;
+    height: 50px;
+    fill: white;
+}
+
+.menu .sound {
+    cursor: pointer;
+}
+
+.menu .lifes {
+    display: flex;
+}
+
+.menu .lifes span {
+    background: url(../images/heart.svg);
+    width: 50px;
+    height: 50px;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+/* !_____Game over_____!*/
+.end-game svg {
+    margin: 0 auto;
+    display: block;
+    height: 150px;
+    width: 150px;
+}
+
+.game-elements {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* !_____Planets_____!*/
+.planet {
+    position: absolute;
+    top: -500px;
+    left: 30px;
+    transition: all .3s ease-out;
+    z-index: 1;
+    background-size: contain;
+    background-repeat: no-repeat !important;
+}
+
+.planet.skin1 {
+    width: 444px;
+    height: 444px;
+    background-image: url(../images/planet1.png);
+}
+
+.planet.skin2 {
+    width: 333px;
+    height: 333px;
+    background-image: url(../images/death-star.png);
+}
+
+.planet.skin3 {
+    width: 222px;
+    height: 222px;
+    background-image: url(../images/planet2.png);
+}
+
+.planet.skin4 {
+    width: 111px;
+    height: 111px;
+    background-image: url(../images/planet3.png);
+}
+
+/* !_____Score style_____!*/
+.score h1{
+    color: wheat;
+    margin-top: 5px;
+}
+
+/* !_____Bonus_____!*/
+.bonus {
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    position: absolute;
+    top: -50px;
+    /* left: calc(50% - 75px); */
+    /* left: 525px */
+    transition: all .3s ease-out;
+    z-index: 2;
+}
+
+.bonus.heart {
+    background-image: url(../images/heart.svg);
+}
+
+/* !_____Helper classes_____!*/
+.hidden {
+    display: none;
+}
